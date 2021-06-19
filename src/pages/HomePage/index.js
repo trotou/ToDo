@@ -11,6 +11,7 @@ import {useHistory} from 'react-router-dom'
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { useServices } from "../../Providers/Services";
 import AlertDialogSlide from "../../components/ModalMap";
+import BingMapsReact from "bingmaps-react";
 
 const HomePage = () => {
     const [list, setList] = useState(['',''])    
@@ -74,9 +75,15 @@ const HomePage = () => {
                   <Typography align="left" color="textPrimary" paragraph>
                     {x.username}                         
                   </Typography>  
-                  <IconButton onClick={handleOpen}>
-                      <LocationOnIcon/>
-                    </IconButton>                                                                                   
+                  <BingMapsReact
+                      bingMapsKey="Au9m_nz5mrOODSqFbFXqi1WXNlphoeQKltJOQFB-nKpM9aXnrfoGfobXlhgm9zEDs"
+                      height="500px"
+                      mapOptions={{
+                        navigationBarMode: "square",
+                        center: [47.60357, -122.32945]
+                      }}
+                      width="500px"              
+                    />                                                                                                    
                 </CardContent>
               </Card>
             ))}

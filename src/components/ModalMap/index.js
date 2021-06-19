@@ -30,19 +30,7 @@ export default function AlertDialogSlide() {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle id="alert-dialog-slide-title">{"Use Google's location service?"}</DialogTitle>
-        <DialogContent>
-        <BingMapsReact
-              bingMapsKey="Au9m_nz5mrOODSqFbFXqi1WXNlphoeQKltJOQFB-nKpM9aXnrfoGfobXlhgm9zEDs"
-              height="500px"
-              mapOptions={{
-                navigationBarMode: "square",
-              }}
-              width="500px"
-              viewOptions={{
-                center: { latitude: 42.360081, longitude: -71.058884 },
-                mapTypeId: "grayscale",
-              }}
-            />
+        <DialogContent>        
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
