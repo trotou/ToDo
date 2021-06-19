@@ -32,7 +32,7 @@ export default function AlertDialogSlide() {
         <DialogTitle id="alert-dialog-slide-title">{"Use Google's location service?"}</DialogTitle>
         <DialogContent>
         <BingMapsReact
-              bingMapsKey="Au9m_nz5mrOODSqFbFXqi1WXNlphoeQKltJOQFB-nKpM9aXnrfoGfobXlhgm9zED"
+              bingMapsKey="Au9m_nz5mrOODSqFbFXqi1WXNlphoeQKltJOQFB-nKpM9aXnrfoGfobXlhgm9zEDs"
               height="500px"
               mapOptions={{
                 navigationBarMode: "square",
