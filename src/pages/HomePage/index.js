@@ -8,13 +8,14 @@ import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
 import CardUsers from "../../components/CardUsers";
 import {useHistory} from 'react-router-dom'
-import GoogleMapReact from 'google-map-react';
-import handleApiLoaded from 'google-map-react'
-import SimpleMap from "../../components/Map";
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import { useServices } from "../../Providers/Services";
+import AlertDialogSlide from "../../components/ModalMap";
 
 const HomePage = () => {
     const [list, setList] = useState(['',''])    
     const history = useHistory()
+    const {open, setOpen} = useServices() 
 
     useEffect(() => {
         axios
@@ -23,9 +24,14 @@ const HomePage = () => {
           .catch((e) => console.error(e));          
       }, []);
 
+      const handleOpen = () => {
+          setOpen(true)
+      }
+
 
     return (
         <>              
+        <AlertDialogSlide/>
           <CardUsers >
             {list.map((x, i) => (
               <Card
@@ -36,14 +42,14 @@ const HomePage = () => {
                   height: "fit-content",
                   backgroundColor: "#E5E4E4",
                   color: "blue",
-                }}
-                onClick={()=> history.push('/users')}
+                }}                
               >
                 <CardHeader
                   avatar={
                     <Avatar alt="kenzie logo" src={"/images/logokenzie.png"} />
                   }
                 />
+
                 <CardContent key={i}>
                   <Typography variant="h6" align="left">
                     Name
@@ -67,8 +73,10 @@ const HomePage = () => {
                   </Typography>
                   <Typography align="left" color="textPrimary" paragraph>
                     {x.username}                         
-                  </Typography>                                                      
-                  <SimpleMap/>
+                  </Typography>  
+                  <IconButton onClick={handleOpen}>
+                      <LocationOnIcon/>
+                    </IconButton>                                                                                   
                 </CardContent>
               </Card>
             ))}
