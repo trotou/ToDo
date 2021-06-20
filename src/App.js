@@ -1,11 +1,13 @@
-import './App.css';
-import Routes from './Routes';
+import "./App.css";
+import ButtonAppBar from "./components/TopBar";
+import Routes from "./Routes";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">  
-      <Routes  />      
+      <ButtonAppBar />
+      <header className="App-header">
+        <Routes />
       </header>
     </div>
   );

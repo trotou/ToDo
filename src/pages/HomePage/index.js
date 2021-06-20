@@ -1,95 +1,34 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { Card } from "@material-ui/core";
-import { IconButton } from "@material-ui/core";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import CardHeader from "@material-ui/core/CardHeader";
-import Avatar from "@material-ui/core/Avatar";
-import CardUsers from "../../components/CardUsers";
-import {useHistory} from 'react-router-dom'
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import { useHistory } from "react-router-dom";
 import { useServices } from "../../Providers/Services";
-import AlertDialogSlide from "../../components/ModalMap";
-import BingMapsReact from "bingmaps-react";
+import { motion } from "framer-motion";
+import CardHome from "../../components/CardUsers";
 
 const HomePage = () => {
-    const [list, setList] = useState(['',''])    
-    const history = useHistory()
-    const {open, setOpen} = useServices() 
+  const [list, setList] = useState(["", ""]);
+  const history = useHistory();
+  const { user, setUser, setUsername, getUsers } = useServices();
 
-    useEffect(() => {
-        axios
-          .get("https://jsonplaceholder.typicode.com/users")
-          .then((resp) => setList(resp.data))
-          .catch((e) => console.error(e));          
-      }, []);
+  useEffect(() => {
+    getUsers().then((resp) => setList(resp));
+  }, [user, getUsers]);
 
-      const handleOpen = () => {
-          setOpen(true)
-      }
+  const handleUser = (id, name) => {
+    setUser(id);
+    setUsername(name);
+    history.push("/user");
+  };
 
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <CardHome list={list} handleUser={handleUser} />
+    </motion.div>
+  );
+};
 
-    return (
-        <>              
-        <AlertDialogSlide/>
-          <CardUsers >
-            {list.map((x, i) => (
-              <Card
-                key={i}
-                style={{
-                  margin: "2%",
-                  width: "320px",
-                  height: "fit-content",
-                  backgroundColor: "#E5E4E4",
-                  color: "blue",
-                }}                
-              >
-                <CardHeader
-                  avatar={
-                    <Avatar alt="kenzie logo" src={"/images/logokenzie.png"} />
-                  }
-                />
-
-                <CardContent key={i}>
-                  <Typography variant="h6" align="left">
-                    Name
-                  </Typography>
-                  <Typography
-                    paragraph
-                    component="p"
-                    align="left"
-                    color="textPrimary"
-                  >
-                    {x.name}
-                  </Typography>
-                  <Typography variant="h6" align="left">
-                    Email
-                  </Typography>
-                  <Typography paragraph align="left" color="textPrimary">
-                    {x.email}
-                  </Typography>
-                  <Typography variant="h6" align="left">
-                    Username
-                  </Typography>
-                  <Typography align="left" color="textPrimary" paragraph>
-                    {x.username}                         
-                  </Typography>  
-                  <BingMapsReact
-                      bingMapsKey="Au9m_nz5mrOODSqFbFXqi1WXNlphoeQKltJOQFB-nKpM9aXnrfoGfobXlhgm9zEDs"
-                      height="500px"
-                      mapOptions={{
-                        navigationBarMode: "square",
-                        center: [47.60357, -122.32945]
-                      }}
-                      width="500px"              
-                    />                                                                                                    
-                </CardContent>
-              </Card>
-            ))}
-          </CardUsers>
-        </>
-      );
-}
-
-export default HomePage
+export default HomePage;
