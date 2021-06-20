@@ -6,13 +6,9 @@ const ServicesContext = createContext();
 export const ServicesProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState();
-  const [username, setUsername] = useState("");
-  const [check, setCheck] = useState(false);
+  const [username, setUsername] = useState();
   const [done, setDone] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  const [todos, setTodos] = useState(["", ""]);
 
   const todoRegister = async (data) => {
     try {
@@ -20,7 +16,7 @@ export const ServicesProvider = ({ children }) => {
 
       return true;
     } catch (error) {
-      console.log("Doens't not registered", error);
+      console.log("Não registrado", error);
 
       return false;
     }
@@ -51,18 +47,17 @@ export const ServicesProvider = ({ children }) => {
       value={{
         open,
         setOpen,
-        handleOpen,
         user,
         setUser,
         username,
         setUsername,
-        check,
-        setCheck,
         todoRegister,
         done,
         setDone,
         getUser,
         getUsers,
+        todos,
+        setTodos,
       }}
     >
       {children}

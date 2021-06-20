@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useServices } from "../../Providers/Services";
 import { motion } from "framer-motion";
 import CheckList from "../../components/NewList";
 
 const UserPage = () => {
-  const [list, setList] = useState(["", ""]);
-  const { user, getUser } = useServices();
+  const { user, getUser, setTodos, todos } = useServices();
 
   useEffect(() => {
-    getUser().then((resp) => setList(resp));
-  }, [user, getUser]);
+    getUser().then((resp) => setTodos(resp));
+  }, [todos]);
 
   return (
     <motion.div
@@ -19,7 +18,7 @@ const UserPage = () => {
       transition={{ duration: 1 }}
       style={{ margin: "3%" }}
     >
-      <CheckList list={list} user={user} />
+      <CheckList list={todos} user={user} />
     </motion.div>
   );
 };
